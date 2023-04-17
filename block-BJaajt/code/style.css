@@ -112,13 +112,13 @@ body{
     padding: 2rem;
     font-weight: bold;
   }
-.github{
+/* .info{
     display: flex;
     flex-direction: column;
     align-items: center;
     
-}
-  .github .profile{
+} */
+  .info img{
    border-radius: 50%;
    height: 6rem;
    width: 6rem;;
@@ -128,18 +128,32 @@ body{
     border: 2px solid blue;
     margin: 1.5rem 0;
   }
-  .github h2{
+  .info h3{
     font-size: 2rem;
     text-transform: capitalize;
     font-weight: bold;
     margin: 0.6rem 0;
   }
 
-  .github span{
+  .info p{
     font-size: 1rem;
   }
 
-  .img{
+  .details{
+  width: 50%;
+  margin-left: 14rem;
+  }
+.list{
+  -webkit-column-count: 6;
+       -moz-column-count: 6;
+            column-count: 6;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+
+
+   li img{
     vertical-align: middle;
     width: 50px;
     height: 50px;
@@ -147,27 +161,25 @@ body{
     font-size: 0;
     margin-right: 0.5rem;
   }
-  h3{
-    margin-right: 1rem;
-    font-size: 1.5rem;
+  .list p{
+    font-size: 1.2rem;
+    margin-top: 1rem;
   }
-  .flex{
-    display: flex;
-  align-items: center;
-  margin-top: 1rem;
+  
 
-  }
 
-  .cat{
+  /*cats*/
+  .cats{
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  .cat h1{
+  .cats h3{
     font-size: 1.5rem;
     margin: 1.5rem 0
   }
-  .cat img{
-    height: auto;
-    width: 50%;
+  .cats img{
+    width: 100%;
+  max-width: 300px;
+  height: auto;
   }
