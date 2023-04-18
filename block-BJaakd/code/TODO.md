@@ -2,18 +2,48 @@
 
 ```js
 // Your code
+const promise = new promise((resolve,reject) =>{
+    setTimeout(() =>{
+        resolve("promise Resolved!");
+    },1000);
+});
+
+promise.then((value)=>{
+    console.log(value);
+})
+
 ```
 
 2. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch`
 
 ```js
 // Your code
+const promise = new Promise((resolve, reject) => {
+  reject("Rejected Promise!");
+});
+
+promise.catch((error) => {
+  console.log(error); 
+});
+
 ```
 
 3. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch` and also use `.finally` to log message `Promise Settled!`.
 
 ```js
 // Your code
+const promise = new Promise((resolve, reject) => {
+  reject("Rejected Promise!");
+});
+
+promise
+  .catch((error) => {
+    console.log(error); 
+  })
+  .finally(() => {
+    console.log("Promise Settled!");
+  });
+
 ```
 
 4. What will be the output of the code below.
@@ -34,6 +64,15 @@ console.log('D');
 
 ```js
 // Your code
+function wait(time) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time);
+  });
+}
+wait(1000).then(() => {
+  console.log('One second has passed!');
+});
+
 ```
 
 6. Do the following:
@@ -59,6 +98,28 @@ console.log('D');
 
 ```js
 // Your code
+
+const promise = new Promise((resolve, reject) => {
+  resolve(21);
+});
+
+promise
+  .then((value) => {
+    return value + 10;
+  })
+  .then((value) => {
+    return value + 100;
+  })
+  .then((value) => {
+    if (value > 100) {
+      throw new Error("Value is greater than 100");
+    }
+    return value;
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+
 ```
 
 8. Do the following:
