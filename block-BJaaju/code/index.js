@@ -1,7 +1,10 @@
-let input= document.querySelector('input');
-let info = document.querySelector('.image');
+let searchElm= document.querySelector('input');
+let root = document.querySelector('.images');
+const url = 
+    'https://api.unsplash.com/photos/?client_id=nv6BjyGTad-uvdkE6sSG5CHEz_nx1f52PPioyZF36r8';
 
-let userImage = document.querySelector('.image img');
+const getSearchURL = (query) => 
+    `https://api.unsplash.com/search/photos?query=${query}&?client_id=nv6BjyGTad-uvdkE6sSG5CHEz_nx1f52PPioyZF36r8`;
 
 function fetch(url , successHandler){
     let xhr = new XMLHttpRequest();
@@ -14,22 +17,31 @@ function fetch(url , successHandler){
     xhr.send();
 }
 
-function handleDisplay(userInfo){
-    userImage.src = userInfo.avatar_url;
-    userImage.alt = userInfo.name;   
+function displayImages(images){
+    root.innerHTML = '';
+    images.forEach((image) => {
+        let li = document.createElement('li');
+        let img = document.createElement('img');
+        img.src = image.urls.thumb;
+        li.append(img);
+        root.append(li);
+     });
 }
 
-function handleInput(event){
-    if(event.keyCode === 13 && input.value){
-        const url = `https://api.unsplash.com/photos/random/?client_id= nv6BjyGTad-uvdkE6sSG5CHEz_nx1f52PPioyZF36r8`;
-        let imageData = input.value;
-        fetch(url + userImage , handleDisplay);
-        input.value ='';
+fetch(url, displayImages);
+
+
+function handleSearch(event){
+    if(event.keyCode === 13 && searchElm.value){
+        fetch(getSearchURL(searchElm.value),(searchResult) =>{
+                displayImages(searchResult.results);
+        });
+        searchElm.value ='';
     }
 }
 
 
-input.addEventListener('keydown',handleInput);
+searchElm.addEventListener('keyup',handleSearch);
 
 
 // nv6BjyGTad-uvdkE6sSG5CHEz_nx1f52PPioyZF36r8

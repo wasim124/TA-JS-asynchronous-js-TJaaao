@@ -99,7 +99,7 @@ body{
     margin: 1.5rem 0;
   }
  
-.image{
+.images{
 
     display: flex;
     flex-wrap: wrap;
@@ -107,15 +107,15 @@ body{
     gap: 8px;
     height: 100vh
 }
-.image > li {
+.images > li {
     flex-basis: 200px; /* width: 350px; */
   }
 
-.image ::after {
+.images ::after {
     content: " ";
     flex-basis: 350px;
   }
-.image li img {
+.images li img {
     object-fit: cover;
     max-width: 100%;
     height: auto;
