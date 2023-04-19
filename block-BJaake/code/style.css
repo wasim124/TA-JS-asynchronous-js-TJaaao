@@ -94,18 +94,19 @@ body{
     background-color: black;
   }
 
-  form .news{
+.news_list{
     padding: 0.5rem 2rem;
     border: 2px solid blue;
     margin: 1.5rem 0;
   }
  
-  .news_list{
+  .news li{
     display: grid;
     align-items: center; 
     grid-template-columns: 1fr 1fr ;
     column-gap: 5px;
    
+    padding: 1.5rem;
    }
    
    img {
@@ -122,12 +123,12 @@ body{
      padding:0.2rem 0.5rem;
      margin: 1rem;
    }
-   .text p{
+   h3{
     padding: 1rem;
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
    }
-   .btn{
+   button{
     background-color: black;
     color: #fff;
     padding: 0.3rem;
