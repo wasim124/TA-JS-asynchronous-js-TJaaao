@@ -1,47 +1,58 @@
-let selectElm= document.querySelector('.news');
-let root = document.querySelector('.images');
+let newsElm= document.querySelector('.news');
+let select = document.querySelector('select');
+let allNews=[];
 const url = 
 `https://api.spaceflightnewsapi.net/v3/articles?_limit=30`;
 
-function fetch(url ){
-    return new Promise((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.onload = () => resolve(JSON.parse(xhr.response));  
-        xhr.onerror = () => reject('Something went wrong!');   
-        xhr.send();
-    });
-   
-}
-
-function displayImages(images){
-    root.innerHTML = '';
-    images.forEach((image) => {
+function renderNews(news){
+    newsElm.innerHTML='';
+    news.forEach((newsItem) =>{
         let li = document.createElement('li');
         let img = document.createElement('img');
-        img.src = image.urls.thumb;
-        li.append(img);
-        root.append(li);
-     });
+        img.src=newsItem.imageUrl;
+        img.alt =newsItem.title;
+        let div = document.createElement('div');
+        let span = document.createElement('span');
+        span.classList.add('title')
+        span.innerText = newsItem.newsSite;
+        let h3 = document.createElement('h3');
+        h3.innerText =newsItem.title;
+        let a = document.createElement('a');
+        a.href = newsItem.url;
+        let button= document.createElement('button');
+        a.append(button);
+        button.innerText='Read More';
+        div.append(span,h3,a);
+        li.append(img,div);
+        newsElm.append(li);
+    })
 }
 
-fetch(url,).then(displayImages)
-            .catch(console.error(error));
+function displayOptions(sources){
+    sources.forEach((source)=>{
+        let option = document.createElement('option');
+        option.innerText = source;
+        option.value=source;
+        select.append(option);
+    });
+};
 
+fetch(url).then((res) => res.json())
+.then((news) =>{
+    allNews = news;
+    renderNews(news);
 
-function handleSearch(event){
-    if(event.keyCode === 13 && searchElm.value){
-        fetch(getSearchURL(searchElm.value))
-            .then((searchResult) =>{
-                displayImages(searchResult.results);
-        });
-        searchElm.value ='';
+    let allSources = Array.from(new Set(news.map((n) =>n.newsSite)));
+    displayOptions(allSources);
+});
+
+select.addEventListener('change',(event)=>{
+    let source =event.target.value.trim();
+    if (source){
+        var filteredNews = allNews.filter((news) => news.newsSite ===source);
+    } else{
+        filteredNews = allNews;
     }
-}
-
-
-searchElm.addEventListener('keyup',handleSearch);
-
-
-// nv6BjyGTad-uvdkE6sSG5CHEz_nx1f52PPioyZF36r8
-// https://api.unsplash.com/photos/random/?client_id=
+    
+    renderNews(filteredNews);
+})
