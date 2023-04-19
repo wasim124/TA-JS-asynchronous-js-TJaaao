@@ -4,6 +4,14 @@ let allNews=[];
 const url = 
 `https://api.spaceflightnewsapi.net/v3/articles?_limit=30`;
 
+
+
+function handleSpinner(status = false){
+    if (status){
+        newsElm.innerHTML =`<div class="donut"></div>`;
+    }
+}
+
 function renderNews(news){
     newsElm.innerHTML='';
     news.forEach((newsItem) =>{
@@ -37,14 +45,17 @@ function displayOptions(sources){
     });
 };
 
-fetch(url).then((res) => res.json())
-.then((news) =>{
+function init(){
+    handleSpinner(true);
+    fetch(url).then((res) => res.json())
+    .then((news) =>{
     allNews = news;
     renderNews(news);
-
+    handleSpinner();
     let allSources = Array.from(new Set(news.map((n) =>n.newsSite)));
     displayOptions(allSources);
 });
+}
 
 select.addEventListener('change',(event)=>{
     let source =event.target.value.trim();
@@ -56,3 +67,5 @@ select.addEventListener('change',(event)=>{
     
     renderNews(filteredNews);
 })
+
+init();
